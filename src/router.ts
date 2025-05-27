@@ -26,6 +26,23 @@ const routes: Array<RouteRecordRaw> = [
     path: "/impressum",
     component: ImpressumScreen,
   },
+  // Redirects for old routes
+  {
+    path: "/winu45screen",
+    redirect: "/gewonnen"
+  },
+  {
+    path: "/mobileu45alreadyu45participatedu45screen",
+    redirect: "/bereits-teilgenommen"
+  },
+  {
+    path: "/mobileu45goodbyeu45screen",
+    redirect: "/vorbei"
+  },
+  {
+    path: "/impressumu45screen",
+    redirect: "/impressum"
+  }
 ];
 
 const router = createRouter({

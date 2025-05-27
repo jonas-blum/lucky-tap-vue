@@ -57,31 +57,51 @@
     </div>
   </template>
   <template v-else>
-    <Screens
-      frameClassName="component"
-      href="https://www.jls.ch/"
-      imageContainer="https://c.animaapp.com/JLkwDwWI/img/image-container-7@2x.png"
-      imageContainerClassName="component-2"
-      logoContainerLogoContainerClassName="screens-instance"
-      property1="startscreen"
-      screen="desktop"
-      text="Tippe auf das Ei um zu spielen"
-      to="/winu45screen"
-      to1="/impressumu45screen"
-    />
+    <div class="desktop-start-screen">
+      <div class="frame-top">
+        <LogoContainer
+          class="logo-container-desktop"
+          href="https://www.jls.ch/"
+        />
+        <div class="title-wrapper">
+          <p class="title">Tippe auf das Ei um zu spielen</p>
+        </div>
+      </div>
+
+      <div class="frame-bottom">
+        <div class="content-wrapper">
+          <div class="egg-container">
+            <router-link to="/gewonnen">
+              <img
+                class="egg-image"
+                alt="Image container"
+                src="https://c.animaapp.com/JLkwDwWI/img/image-container-7@2x.png"
+              />
+            </router-link>
+          </div>
+
+          <Textlink
+            class="impressum-link"
+            divClassName="textlink-desktop"
+            status="default"
+            to="/impressum"
+          />
+        </div>
+      </div>
+    </div>
   </template>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from "vue";
+import { defineComponent } from "vue";
 import { useWindowWidth } from "../breakpoints";
-import Screens from "../components/Screens.vue";
+import LogoContainer from "../components/LogoContainer.vue";
 import Textlink from "../components/Textlink.vue";
 
 export default defineComponent({
   name: "MobileStartScreen",
   components: {
-    Screens,
+    LogoContainer,
     Textlink,
   },
   setup() {
@@ -94,6 +114,7 @@ export default defineComponent({
 </script>
 
 <style>
+/* Mobile styles */
 .mobile-start-screen .frame-4 {
   align-items: center;
   align-self: stretch;
@@ -205,17 +226,103 @@ export default defineComponent({
   text-align: right !important;
 }
 
-.mobile-start-screen .component {
-  background-image: url(https://c.animaapp.com/JLkwDwWI/img/frame-3-7.png) !important;
+/* Desktop styles */
+.desktop-start-screen {
+  display: flex;
+  flex-direction: column;
+  height: 1024px;
+  width: 1440px;
+  position: relative;
 }
 
-.mobile-start-screen .screens-instance {
+.desktop-start-screen .frame-top {
+  align-items: center;
+  align-self: stretch;
+  background-image: url(https://c.animaapp.com/JLkwDwWI/img/frame-3-7.png);
+  background-position: 50% 50%;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  gap: 64px;
+  padding: 56px 64px 256px;
+  position: relative;
+  width: 100%;
+}
+
+.desktop-start-screen .logo-container-desktop {
   background-image: url(https://c.animaapp.com/JLkwDwWI/img/logo-container-10@2x.png) !important;
   position: relative !important;
   width: 147.89px !important;
 }
 
-.mobile-start-screen .component-2 {
-  object-fit: unset !important;
+.desktop-start-screen .title-wrapper {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  position: relative;
+  width: 414px;
+}
+
+.desktop-start-screen .title {
+  align-self: stretch;
+  color: #111111;
+  font-family: var(--h1-font-family);
+  font-size: var(--h1-font-size);
+  font-style: var(--h1-font-style);
+  font-weight: var(--h1-font-weight);
+  letter-spacing: var(--h1-letter-spacing);
+  line-height: var(--h1-line-height);
+  margin-top: -1.00px;
+  position: relative;
+  text-align: center;
+}
+
+.desktop-start-screen .frame-bottom {
+  align-items: center;
+  align-self: stretch;
+  background-color: #efe7eb;
+  display: flex;
+  flex: 1;
+  flex-grow: 1;
+  justify-content: center;
+  padding: 0px 32px;
+  position: relative;
+  width: 100%;
+}
+
+.desktop-start-screen .content-wrapper {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  padding: 0px 0px 40px;
+  position: relative;
+  width: 416px;
+}
+
+.desktop-start-screen .egg-container {
+  align-self: stretch;
+  height: 64px;
+  position: relative;
+  width: 100%;
+}
+
+.desktop-start-screen .egg-image {
+  display: block;
+  height: 422px;
+  left: 0;
+  object-fit: cover;
+  position: absolute;
+  top: -358px;
+  width: 416px;
+}
+
+.desktop-start-screen .impressum-link {
+  flex: 0 0 auto !important;
+}
+
+.desktop-start-screen .textlink-desktop {
+  text-align: right !important;
 }
 </style>

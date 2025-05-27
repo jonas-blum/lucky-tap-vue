@@ -51,7 +51,7 @@
                 jetzt aufs nächste Jahr.
               </p>
 
-              <router-link to="/mobileu45startu45screen">
+              <router-link to="/">
                 <img
                   class="image-container-5"
                   alt="Image container"
@@ -64,7 +64,7 @@
               class="textlink-5"
               divClassName="textlink-6"
               status="default"
-              to="/impressumu45screen"
+              to="/impressum"
             />
           </div>
         </template>
@@ -83,7 +83,7 @@
                 jetzt aufs nächste Jahr.
               </p>
 
-              <router-link to="/mobileu45startu45screen">
+              <router-link to="/">
                 <img
                   class="image-container-6"
                   alt="Image container"
@@ -96,7 +96,7 @@
               class="textlink-5"
               divClassName="textlink-6"
               status="default"
-              to="/impressumu45screen"
+              to="/impressum"
             />
           </div>
         </template>

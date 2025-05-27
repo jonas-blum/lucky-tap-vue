@@ -1,6 +1,6 @@
 <template>
   <router-link :to="to">
-    <button :class="['button', statusDefaultIconClassName]">
+    <button :class="['button', statusDefaultIconClassName]" @click="handleClick">
       <div :class="['senden', divClassName]">{{ text }}</div>
     </button>
   </router-link>
@@ -34,9 +34,22 @@ export default defineComponent({
     },
     to: {
       type: String,
-      required: true,
+      default: "",
     },
   },
+  emits: ['click'],
+  setup(props, { emit }) {
+    const handleClick = (event: Event) => {
+      if (!props.to) {
+        event.preventDefault();
+      }
+      emit('click', event);
+    };
+
+    return {
+      handleClick
+    };
+  }
 });
 </script>
 
@@ -52,6 +65,7 @@ export default defineComponent({
   justify-content: center;
   padding: 12px 24px;
   position: relative;
+  cursor: pointer;
 }
 
 .button .senden {
