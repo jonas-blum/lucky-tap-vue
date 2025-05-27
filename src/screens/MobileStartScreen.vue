@@ -34,7 +34,7 @@
 
       <div class="frame-5">
         <div class="frame-6">
-          <div class="frame-7">
+          <div class="frame-7" style="display: flex; justify-content: center; width: 100%;">
             <div class="img-wrapper">
               <router-link to="/gewonnen">
                 <img
@@ -201,21 +201,22 @@ export default defineComponent({
 }
 
 .mobile-start-screen .img-wrapper {
-  align-items: flex-start;
+  align-items: center;
   display: flex;
   flex-direction: column;
   height: 311px;
   position: relative;
   top: -244px;
-  width: 311px;
+  width: 100%;
+  justify-content: center;
 }
 
 .mobile-start-screen .image-container-2 {
-  align-self: stretch;
   display: block;
   height: 311px;
   position: relative;
-  width: 100%;
+  width: 311px;
+  margin: 0 auto;
 }
 
 .mobile-start-screen .instance-node {

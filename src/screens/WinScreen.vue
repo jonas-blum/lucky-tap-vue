@@ -2,25 +2,18 @@
   <div
     class="win-screen"
     :style="{
-      alignItems: screenWidth < 1440 ? 'center' : undefined,
-      display: screenWidth < 1440 ? 'inline-flex' : undefined,
-      gap: screenWidth < 1440 ? '8px' : undefined,
-      height: screenWidth >= 1440 ? '1671px' : undefined,
-      position: screenWidth < 1440 ? 'relative' : undefined,
-      width: screenWidth >= 1440 ? '1440px' : undefined
+      height: screenWidth < 1440 ? '1187px' : '1671px',
+      width: screenWidth < 1440 ? '375px' : '1440px'
     }"
-    :data-effects-mode="screenWidth < 1440 ? 'mobile' : undefined"
     data-model-id="3257:1084"
-    :data-typography-mode="screenWidth < 1440 ? 'mobile' : undefined"
-    :data-typoswap-mode="screenWidth < 1440 ? 'non-serif' : undefined"
   >
     <div
       class="frame-17"
       :style="{
-        alignItems: screenWidth < 1440 ? 'flex-start' : screenWidth >= 1440 ? 'center' : undefined,
+        alignItems: screenWidth < 1440 ? 'flex-start' : 'center',
         flexDirection: screenWidth < 1440 ? 'column' : undefined,
         gap: screenWidth >= 1440 ? '8px' : undefined,
-        width: screenWidth < 1440 ? '375px' : screenWidth >= 1440 ? '1440px' : undefined
+        width: screenWidth < 1440 ? '375px' : '1440px'
       }"
       :data-effects-mode="screenWidth >= 1440 ? 'desktop' : undefined"
       :data-typography-mode="screenWidth >= 1440 ? 'desktop' : undefined"
@@ -60,7 +53,7 @@
         </div>
 
         <div class="frame-20">
-          <div class="frame-21">
+          <form class="frame-21" @submit.prevent="submitForm">
             <p class="text-wrapper-4">
               Bitte hinterlegen Sie Ihre Angaben, damit wir Sie kontaktieren
               können. Den Gewinn senden wir Ihnen gerne per Post zu. Sie
@@ -71,57 +64,84 @@
               <div class="frame-23">
                 <Single
                   class="instance-node-2"
-                  selectorsStatus="default"
+                  :selectorsStatus="formData.gender === 'female' ? 'active' : 'default'"
                   state="default"
                   text="Frau"
+                  @click="formData.gender = 'female'"
                 />
                 <Single
                   class="instance-node-2"
-                  selectorsStatus="default"
+                  :selectorsStatus="formData.gender === 'male' ? 'active' : 'default'"
                   state="default"
                   text="Herr"
+                  @click="formData.gender = 'male'"
                 />
                 <Single
                   class="instance-node-2"
-                  selectorsStatus="active"
+                  :selectorsStatus="formData.gender === 'diverse' ? 'active' : 'default'"
                   state="default"
                   text="Divers"
+                  @click="formData.gender = 'diverse'"
                 />
               </div>
 
-              <InputField
-                class="instance-node-2"
-                status="default"
-                text="Vorname*"
-                text1="Max"
-              />
-              <InputField
-                class="input-field-instance"
-                status="default"
-                text="Nachname*"
-                text1="Muster"
-              />
-              <InputField
-                class="input-field-instance"
-                status="default"
-                text="E-Mail*"
-                text1="mx.muster@gmail.com"
-              />
-              <InputField
-                class="input-field-2"
-                status="default"
-                text="Telefonnummer*"
-                text1="+41 79 123 45 67"
-              />
+              <div class="input-field-wrapper">
+                <label class="input-label">Vorname*</label>
+                <input 
+                  v-model="formData.firstName" 
+                  class="input-field-custom" 
+                  type="text" 
+                  placeholder="Max"
+                  required
+                />
+                <div v-if="errors.firstName" class="error-message">{{ errors.firstName }}</div>
+              </div>
+
+              <div class="input-field-wrapper">
+                <label class="input-label">Nachname*</label>
+                <input 
+                  v-model="formData.lastName" 
+                  class="input-field-custom" 
+                  type="text" 
+                  placeholder="Muster"
+                  required
+                />
+                <div v-if="errors.lastName" class="error-message">{{ errors.lastName }}</div>
+              </div>
+
+              <div class="input-field-wrapper">
+                <label class="input-label">E-Mail*</label>
+                <input 
+                  v-model="formData.email" 
+                  class="input-field-custom" 
+                  type="email" 
+                  placeholder="mx.muster@gmail.com"
+                  required
+                />
+                <div v-if="errors.email" class="error-message">{{ errors.email }}</div>
+              </div>
+
+              <div class="input-field-wrapper">
+                <label class="input-label">Telefonnummer*</label>
+                <input 
+                  v-model="formData.phone" 
+                  class="input-field-custom" 
+                  type="tel" 
+                  placeholder="+41 79 123 45 67"
+                  required
+                />
+                <div v-if="errors.phone" class="error-message">{{ errors.phone }}</div>
+              </div>
             </div>
 
             <Single
               class="single-2"
               divClassName="single-instance"
-              selectorsStatus="default"
+              :selectorsStatus="formData.newsletter ? 'active' : 'default'"
               selectorsType="checkbox"
               state="default"
               text="Ich möchte den Newsletter erhalten"
+              @click="formData.newsletter = !formData.newsletter"
             />
             <div class="frame-24">
               <div class="frame-25">
@@ -136,15 +156,12 @@
                     Anti-Roboter-Vertifizierung
                   </div>
 
-                  <ButtonFinal
-                    class="button-final-instance"
-                    color="dark"
-                    divClassName="button-final-2"
-                    size="large"
-                    state="default"
-                    text="Hier klicken"
-                    type="primary"
-                  />
+                    <div 
+                      class="captcha-button"
+                      @click.prevent="verifyCaptcha"
+                    >
+                      <span class="captcha-text">{{ captchaVerified ? 'Verifiziert ✓' : 'Hier klicken' }}</span>
+                    </div>
                 </div>
               </div>
 
@@ -155,22 +172,23 @@
               />
             </div>
 
-            <Button
-              divClassName="button-6"
-              icon="false"
-              status="default"
-              statusDefaultIconClassName="button-5"
-              text="Senden"
-              to="/mobileu45alreadyu45participatedu45screen"
-            />
+            <button 
+              type="submit" 
+              class="submit-button" 
+              :class="{ 'disabled': !isFormValid }"
+              :disabled="!isFormValid"
+            >
+              <div class="button-text">Senden</div>
+            </button>
+
             <Textlink
               class="instance-node-2"
               divClassName="textlink-7"
               status="default"
-              text="Imrepssum"
-              to="/impressumu45screen"
+              text="Impressum"
+              to="/impressum"
             />
-          </div>
+          </form>
         </div>
       </template>
 
@@ -199,7 +217,7 @@
           </div>
 
           <div class="frame-29">
-            <div class="frame-30">
+            <form class="frame-30" @submit.prevent="submitForm">
               <p class="body-4">
                 Bitte hinterlegen Sie Ihre Angaben, damit wir Sie kontaktieren
                 können. Den Gewinn senden wir Ihnen gerne per Post zu. Sie
@@ -210,60 +228,87 @@
                 <div class="frame-23">
                   <Single
                     class="instance-node-2"
-                    selectorsStatus="default"
+                    :selectorsStatus="formData.gender === 'female' ? 'active' : 'default'"
                     selectorsType="radio"
                     state="default"
                     text="Frau"
+                    @click="formData.gender = 'female'"
                   />
                   <Single
                     class="instance-node-2"
-                    selectorsStatus="default"
+                    :selectorsStatus="formData.gender === 'male' ? 'active' : 'default'"
                     selectorsType="radio"
                     state="default"
                     text="Herr"
+                    @click="formData.gender = 'male'"
                   />
                   <Single
                     class="instance-node-2"
-                    selectorsStatus="active"
+                    :selectorsStatus="formData.gender === 'diverse' ? 'active' : 'default'"
                     selectorsType="radio"
                     state="default"
                     text="Divers"
+                    @click="formData.gender = 'diverse'"
                   />
                 </div>
 
-                <InputField
-                  class="input-field-2"
-                  status="default"
-                  text="Vorname*"
-                  text1="Max"
-                />
-                <InputField
-                  class="input-field-3"
-                  status="default"
-                  text="Nachname*"
-                  text1="Muster"
-                />
-                <InputField
-                  class="input-field-3"
-                  status="default"
-                  text="E-Mail*"
-                  text1="mx.muster@gmail.com"
-                />
-                <InputField
-                  class="input-field-2"
-                  status="default"
-                  text="Telefonnummer*"
-                  text1="+41 79 123 45 67"
-                />
+                <div class="input-field-wrapper">
+                  <label class="input-label">Vorname*</label>
+                  <input 
+                    v-model="formData.firstName" 
+                    class="input-field-custom" 
+                    type="text" 
+                    placeholder="Max"
+                    required
+                  />
+                  <div v-if="errors.firstName" class="error-message">{{ errors.firstName }}</div>
+                </div>
+
+                <div class="input-field-wrapper">
+                  <label class="input-label">Nachname*</label>
+                  <input 
+                    v-model="formData.lastName" 
+                    class="input-field-custom" 
+                    type="text" 
+                    placeholder="Muster"
+                    required
+                  />
+                  <div v-if="errors.lastName" class="error-message">{{ errors.lastName }}</div>
+                </div>
+
+                <div class="input-field-wrapper">
+                  <label class="input-label">E-Mail*</label>
+                  <input 
+                    v-model="formData.email" 
+                    class="input-field-custom" 
+                    type="email" 
+                    placeholder="mx.muster@gmail.com"
+                    required
+                  />
+                  <div v-if="errors.email" class="error-message">{{ errors.email }}</div>
+                </div>
+
+                <div class="input-field-wrapper">
+                  <label class="input-label">Telefonnummer*</label>
+                  <input 
+                    v-model="formData.phone" 
+                    class="input-field-custom" 
+                    type="tel" 
+                    placeholder="+41 79 123 45 67"
+                    required
+                  />
+                  <div v-if="errors.phone" class="error-message">{{ errors.phone }}</div>
+                </div>
               </div>
 
               <Single
                 class="single-2"
                 divClassName="single-instance"
-                selectorsStatus="default"
+                :selectorsStatus="formData.newsletter ? 'active' : 'default'"
                 selectorsType="checkbox"
                 state="default"
                 text="Ich möchte den Newsletter erhalten"
+                @click="formData.newsletter = !formData.newsletter"
               />
               <div class="frame-24">
                 <div class="frame-25">
@@ -278,15 +323,12 @@
                       Anti-Roboter-Vertifizierung
                     </div>
 
-                    <ButtonFinal
-                      class="button-final-instance"
-                      color="dark"
-                      divClassName="button-final-2"
-                      size="large"
-                      state="default"
-                      text="Hier klicken"
-                      type="primary"
-                    />
+                    <div 
+                      class="captcha-button"
+                      @click.prevent="verifyCaptcha"
+                    >
+                      <span class="captcha-text">{{ captchaVerified ? 'Verifiziert ✓' : 'Hier klicken' }}</span>
+                    </div>
                   </div>
                 </div>
 
@@ -297,21 +339,23 @@
                 />
               </div>
 
-              <Button
-                icon="false"
-                status="default"
-                statusDefaultIconClassName="button-5"
-                text="Senden"
-                to="/mobileu45alreadyu45participatedu45screen"
-              />
+              <button 
+                type="submit" 
+                class="submit-button" 
+                :class="{ 'disabled': !isFormValid }"
+                :disabled="!isFormValid"
+              >
+                <div class="button-text">Senden</div>
+              </button>
+
               <Textlink
                 class="instance-node-2"
                 divClassName="textlink-7"
                 status="default"
-                text="Imrepssum"
-                to="/impressumu45screen"
+                text="Impressum"
+                to="/impressum"
               />
-            </div>
+            </form>
           </div>
         </div>
       </template>
@@ -320,11 +364,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from "vue";
+import { defineComponent, reactive, computed, ref } from "vue";
 import { useWindowWidth } from "../breakpoints";
-import Button from "../components/Button.vue";
+import { useRouter } from "vue-router";
 import ButtonFinal from "../components/ButtonFinal.vue";
-import InputField from "../components/InputField.vue";
 import LogoContainer from "../components/LogoContainer.vue";
 import Single from "../components/Single.vue";
 import Textlink from "../components/Textlink.vue";
@@ -332,17 +375,111 @@ import Textlink from "../components/Textlink.vue";
 export default defineComponent({
   name: "WinScreen",
   components: {
-    Button,
     ButtonFinal,
-    InputField,
     LogoContainer,
     Single,
     Textlink,
   },
   setup() {
     const screenWidth = useWindowWidth();
+    const router = useRouter();
+    
+    const formData = reactive({
+      gender: 'diverse',
+      firstName: '',
+      lastName: '',
+      email: '',
+      phone: '',
+      newsletter: false
+    });
+    
+    const captchaVerified = ref(false);
+    
+    const errors = reactive({
+      firstName: '',
+      lastName: '',
+      email: '',
+      phone: ''
+    });
+    
+    const validateEmail = (email: string) => {
+      const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return re.test(email);
+    };
+    
+    const validatePhone = (phone: string) => {
+      // More relaxed validation for phone numbers
+      // Allow different formats and just check for minimum digits
+      const digitsOnly = phone.replace(/\D/g, '');
+      return digitsOnly.length >= 8 && digitsOnly.length <= 15;
+    };
+    
+    const validateForm = () => {
+      let isValid = true;
+      
+      // Reset errors
+      errors.firstName = '';
+      errors.lastName = '';
+      errors.email = '';
+      errors.phone = '';
+      
+      if (!formData.firstName.trim()) {
+        errors.firstName = 'Vorname ist erforderlich';
+        isValid = false;
+      }
+      
+      if (!formData.lastName.trim()) {
+        errors.lastName = 'Nachname ist erforderlich';
+        isValid = false;
+      }
+      
+      if (!formData.email.trim()) {
+        errors.email = 'E-Mail ist erforderlich';
+        isValid = false;
+      } else if (!validateEmail(formData.email)) {
+        errors.email = 'Ungültige E-Mail-Adresse';
+        isValid = false;
+      }
+      
+      if (!formData.phone.trim()) {
+        errors.phone = 'Telefonnummer ist erforderlich';
+        isValid = false;
+      } else if (!validatePhone(formData.phone)) {
+        errors.phone = 'Ungültige Telefonnummer';
+        isValid = false;
+      }
+      
+      return isValid;
+    };
+    
+    const verifyCaptcha = () => {
+      captchaVerified.value = true;
+    };
+    
+    const isFormValid = computed(() => {
+      return formData.firstName.trim() !== '' && 
+             formData.lastName.trim() !== '' && 
+             validateEmail(formData.email) && 
+             validatePhone(formData.phone) &&
+             captchaVerified.value;
+    });
+    
+    const submitForm = () => {
+      if (validateForm()) {
+        console.log('Form submitted:', formData);
+        // Navigate to the "already participated" page
+        router.push('/bereits-teilgenommen');
+      }
+    };
+    
     return {
       screenWidth,
+      formData,
+      errors,
+      isFormValid,
+      submitForm,
+      captchaVerified,
+      verifyCaptcha
     };
   },
 });
@@ -487,15 +624,36 @@ export default defineComponent({
   flex: 0 0 auto !important;
 }
 
-.win-screen .input-field-instance {
-  border-radius: 12px !important;
-  flex: 0 0 auto !important;
+.win-screen .input-field-wrapper {
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 100%;
 }
 
-.win-screen .input-field-2 {
-  align-self: stretch !important;
-  flex: 0 0 auto !important;
-  width: 100% !important;
+.win-screen .input-label {
+  color: #111111;
+  font-family: var(--label-font-family);
+  font-size: var(--label-font-size);
+  font-weight: var(--label-font-weight);
+}
+
+.win-screen .input-field-custom {
+  align-self: stretch;
+  border: 1px solid #111111;
+  border-radius: 12px;
+  padding: 12px 16px;
+  font-family: var(--CTA-font-family);
+  font-size: var(--CTA-font-size);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.win-screen .error-message {
+  color: #EC0000;
+  font-size: 14px;
+  margin-top: 4px;
 }
 
 .win-screen .single-instance {
@@ -562,22 +720,27 @@ export default defineComponent({
   position: relative;
 }
 
-.win-screen .button-final-instance {
-  align-self: stretch !important;
-  background-color: #111111 !important;
-  display: flex !important;
-  height: 24px !important;
-  padding: 0px 24px !important;
-  width: 100% !important;
+.win-screen .captcha-button {
+  align-self: stretch;
+  background-color: #111111;
+  display: flex;
+  height: 24px;
+  padding: 0px 24px;
+  width: 100%;
+  border-radius: 3px;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
 }
 
-.win-screen .button-final-2 {
-  font-family: var(--label-font-family) !important;
-  font-size: var(--label-font-size) !important;
-  font-style: var(--label-font-style) !important;
-  font-weight: var(--label-font-weight) !important;
-  letter-spacing: var(--label-letter-spacing) !important;
-  line-height: var(--label-line-height) !important;
+.win-screen .captcha-text {
+  color: #ffffff;
+  font-family: var(--label-font-family);
+  font-size: var(--label-font-size);
+  font-style: var(--label-font-style);
+  font-weight: var(--label-font-weight);
+  letter-spacing: var(--label-letter-spacing);
+  line-height: var(--label-line-height);
 }
 
 .win-screen .image-2 {
@@ -587,14 +750,40 @@ export default defineComponent({
   width: 93.82px;
 }
 
-.win-screen .button-5 {
-  align-self: stretch !important;
-  display: flex !important;
-  width: 100% !important;
+.win-screen .submit-button {
+  all: unset;
+  align-items: center;
+  background-color: #efb0d0;
+  border-radius: 12px;
+  box-sizing: border-box;
+  display: inline-flex;
+  height: 48px;
+  justify-content: center;
+  padding: 12px 24px;
+  position: relative;
+  cursor: pointer;
+  align-self: stretch;
+  width: 100%;
 }
 
-.win-screen .button-6 {
-  margin-top: unset !important;
+.win-screen .submit-button.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.win-screen .button-text {
+  color: #111111;
+  font-family: var(--CTA-font-family);
+  font-size: var(--CTA-font-size);
+  font-style: var(--CTA-font-style);
+  font-weight: var(--CTA-font-weight);
+  letter-spacing: var(--CTA-letter-spacing);
+  line-height: var(--CTA-line-height);
+  margin-top: -1.00px;
+  position: relative;
+  text-align: center;
+  white-space: nowrap;
+  width: fit-content;
 }
 
 .win-screen .textlink-7 {
@@ -666,12 +855,5 @@ export default defineComponent({
   margin-top: -1.00px;
   position: relative;
   text-align: center;
-}
-
-.win-screen .input-field-3 {
-  align-self: stretch !important;
-  border-radius: 12px !important;
-  flex: 0 0 auto !important;
-  width: 100% !important;
 }
 </style>
