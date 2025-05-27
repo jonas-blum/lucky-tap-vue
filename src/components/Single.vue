@@ -10,7 +10,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, PropType } from "vue";
 import Selectors from "./Selectors.vue";
 
 export default defineComponent({
@@ -28,7 +28,7 @@ export default defineComponent({
       default: "",
     },
     selectorsStatus: {
-      type: String,
+      type: String as PropType<"active" | "default">,
       default: "active",
     },
     text: {
@@ -36,7 +36,7 @@ export default defineComponent({
       default: "Label",
     },
     selectorsType: {
-      type: String,
+      type: String as PropType<"checkbox" | "radio">,
       default: "radio",
     },
     divClassName: {

@@ -2,21 +2,21 @@
   <div
     class="mobile-goodbye"
     :style="{
-      height: screenWidth < 1440 ? '811px' : screenWidth >= 1440 ? '1024px' : undefined,
-      width: screenWidth < 1440 ? '375px' : screenWidth >= 1440 ? '1440px' : undefined
+      height: screenWidth < 1440 ? '811px' : '1024px',
+      width: screenWidth < 1440 ? '375px' : '1440px'
     }"
     data-model-id="3266:1863"
   >
     <div
       class="mobile-goodbye-wrapper"
       :style="{
-        alignItems: screenWidth < 1440 ? 'center' : screenWidth >= 1440 ? 'flex-start' : undefined,
-        display: screenWidth < 1440 ? 'inline-flex' : screenWidth >= 1440 ? 'flex' : undefined,
-        height: screenWidth < 1440 ? '811px' : screenWidth >= 1440 ? '1024px' : undefined,
+        alignItems: screenWidth < 1440 ? 'center' : 'flex-start',
+        display: screenWidth < 1440 ? 'inline-flex' : 'flex',
+        height: screenWidth < 1440 ? '811px' : '1024px',
         width: screenWidth >= 1440 ? '1440px' : undefined
       }"
-      :data-effects-mode="screenWidth < 1440 ? 'mobile' : screenWidth >= 1440 ? 'desktop' : undefined"
-      :data-typography-mode="screenWidth < 1440 ? 'mobile' : screenWidth >= 1440 ? 'desktop' : undefined"
+      :data-effects-mode="screenWidth < 1440 ? 'mobile' : 'desktop'"
+      :data-typography-mode="screenWidth < 1440 ? 'mobile' : 'desktop'"
       data-typoswap-mode="non-serif"
     >
       <div
@@ -51,13 +51,13 @@
                 jetzt aufs nächste Jahr.
               </p>
 
-              <Link to="/mobileu45startu45screen">
+              <router-link to="/mobileu45startu45screen">
                 <img
                   class="image-container-5"
                   alt="Image container"
                   src="https://c.animaapp.com/JLkwDwWI/img/image-container-4@2x.png"
                 />
-              </Link>
+              </router-link>
             </div>
 
             <Textlink
@@ -83,13 +83,13 @@
                 jetzt aufs nächste Jahr.
               </p>
 
-              <Link to="/mobileu45startu45screen">
+              <router-link to="/mobileu45startu45screen">
                 <img
                   class="image-container-6"
                   alt="Image container"
                   src="https://c.animaapp.com/JLkwDwWI/img/image-container-5@2x.png"
                 />
-              </Link>
+              </router-link>
             </div>
 
             <Textlink
@@ -106,23 +106,19 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from "vue";
-import { Link } from "vue-router";
+import { defineComponent } from "vue";
+import { useWindowWidth } from "../breakpoints";
 import LogoContainer from "../components/LogoContainer.vue";
 import Textlink from "../components/Textlink.vue";
 
 export default defineComponent({
   name: "MobileGoodbye",
   components: {
-    Link,
     LogoContainer,
     Textlink
   },
   setup() {
-    const screenWidth = ref(window.innerWidth);
-    window.addEventListener('resize', () => {
-      screenWidth.value = window.innerWidth;
-    });
+    const screenWidth = useWindowWidth();
 
     return {
       screenWidth

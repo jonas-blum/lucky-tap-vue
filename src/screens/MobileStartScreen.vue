@@ -73,7 +73,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from "vue";
+import { defineComponent } from "vue";
 import { useWindowWidth } from "../breakpoints";
 import Screens from "../components/Screens.vue";
 import Textlink from "../components/Textlink.vue";

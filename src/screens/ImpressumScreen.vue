@@ -2,20 +2,20 @@
   <div
     class="impressum-screen"
     :style="{
-      height: screenWidth < 1440 ? '1187px' : screenWidth >= 1440 ? '1017px' : undefined,
-      width: screenWidth < 1440 ? '375px' : screenWidth >= 1440 ? '1440px' : undefined
+      height: screenWidth < 1440 ? '1187px' : '1017px',
+      width: screenWidth < 1440 ? '375px' : '1440px'
     }"
     data-model-id="3257:1094"
   >
     <div
       class="mobile-impressum-wrapper"
       :style="{
-        alignItems: screenWidth < 1440 ? 'center' : screenWidth >= 1440 ? 'flex-start' : undefined,
-        display: screenWidth < 1440 ? 'inline-flex' : screenWidth >= 1440 ? 'flex' : undefined,
+        alignItems: screenWidth < 1440 ? 'center' : 'flex-start',
+        display: screenWidth < 1440 ? 'inline-flex' : 'flex',
         width: screenWidth >= 1440 ? '1440px' : undefined
       }"
-      :data-effects-mode="screenWidth < 1440 ? 'mobile' : screenWidth >= 1440 ? 'desktop' : undefined"
-      :data-typography-mode="screenWidth < 1440 ? 'mobile' : screenWidth >= 1440 ? 'desktop' : undefined"
+      :data-effects-mode="screenWidth < 1440 ? 'mobile' : 'desktop'"
+      :data-typography-mode="screenWidth < 1440 ? 'mobile' : 'desktop'"
       data-typoswap-mode="non-serif"
     >
       <div
@@ -35,7 +35,7 @@
             <img
               class="logo-container-8"
               alt="Logo container"
-              :src="screenWidth >= 1440 ? 'https://c.animaapp.com/JLkwDwWI/img/logo-container-7@2x.png' : screenWidth < 1440 ? 'https://c.animaapp.com/JLkwDwWI/img/logo-container-10@2x.png' : undefined"
+              :src="screenWidth >= 1440 ? 'https://c.animaapp.com/JLkwDwWI/img/logo-container-7@2x.png' : 'https://c.animaapp.com/JLkwDwWI/img/logo-container-10@2x.png'"
             />
           </a>
         </div>
@@ -88,6 +88,7 @@
               status="default"
               statusDefaultIconClassName="button-instance"
               text="Schliessen"
+              to="/"
             />
           </div>
 
@@ -146,6 +147,7 @@
                 status="default"
                 statusDefaultIconClassName="button-4"
                 text="Schliessen"
+                to="/"
               />
             </div>
           </div>
@@ -158,7 +160,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from "vue";
+import { defineComponent } from "vue";
+import { useWindowWidth } from "../breakpoints";
 import Button from "../components/Button.vue";
 import HugeIconInterfaceOutlineRemove from "../icons/HugeIconInterfaceOutlineRemove.vue";
 
@@ -169,10 +172,7 @@ export default defineComponent({
     HugeIconInterfaceOutlineRemove
   },
   setup() {
-    const screenWidth = ref(window.innerWidth);
-    window.addEventListener('resize', () => {
-      screenWidth.value = window.innerWidth;
-    });
+    const screenWidth = useWindowWidth();
 
     return {
       screenWidth
