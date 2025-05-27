@@ -25,11 +25,12 @@ export default defineComponent({
 });
 </script>
 
-<style>
+<style scoped>
 .logo-container {
   background-image: url(https://c.animaapp.com/JLkwDwWI/img/logo-container@2x.png);
   background-size: 100% 100%;
   height: 75px;
   width: 148px;
+  display: inline-block;
 }
 </style>

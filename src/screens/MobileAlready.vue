@@ -2,21 +2,21 @@
   <div
     class="mobile-already"
     :style="{
-      height: screenWidth < 1440 ? '811px' : screenWidth >= 1440 ? '1024px' : undefined,
-      width: screenWidth < 1440 ? '375px' : screenWidth >= 1440 ? '1440px' : undefined
+      height: screenWidth < 1440 ? '811px' : '1024px',
+      width: screenWidth < 1440 ? '375px' : '1440px'
     }"
     data-model-id="3266:1862"
   >
     <div
       class="mobile-already-wrapper"
       :style="{
-        alignItems: screenWidth < 1440 ? 'center' : screenWidth >= 1440 ? 'flex-start' : undefined,
-        display: screenWidth < 1440 ? 'inline-flex' : screenWidth >= 1440 ? 'flex' : undefined,
-        height: screenWidth < 1440 ? '811px' : screenWidth >= 1440 ? '1024px' : undefined,
+        alignItems: screenWidth < 1440 ? 'center' : 'flex-start',
+        display: screenWidth < 1440 ? 'inline-flex' : 'flex',
+        height: screenWidth < 1440 ? '811px' : '1024px',
         width: screenWidth >= 1440 ? '1440px' : undefined
       }"
-      :data-effects-mode="screenWidth < 1440 ? 'mobile' : screenWidth >= 1440 ? 'desktop' : undefined"
-      :data-typography-mode="screenWidth < 1440 ? 'mobile' : screenWidth >= 1440 ? 'desktop' : undefined"
+      :data-effects-mode="screenWidth < 1440 ? 'mobile' : 'desktop'"
+      :data-typography-mode="screenWidth < 1440 ? 'mobile' : 'desktop'"
       data-typoswap-mode="non-serif"
     >
       <div
@@ -106,7 +106,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from "vue";
+import { defineComponent } from "vue";
 import { useWindowWidth } from "../breakpoints";
 import LogoContainer from "../components/LogoContainer.vue";
 import Textlink from "../components/Textlink.vue";
