@@ -11,24 +11,20 @@ const routes: Array<RouteRecordRaw> = [
     component: MobileStartScreen,
   },
   {
-    path: "/mobileu45startu45screen",
-    component: MobileStartScreen,
+    path: "/gewonnen",
+    component: WinScreen,
   },
   {
-    path: "/mobileu45alreadyu45participatedu45screen",
+    path: "/bereits-teilgenommen",
     component: MobileAlready,
   },
   {
-    path: "/mobileu45goodbyeu45screen",
+    path: "/vorbei",
     component: MobileGoodbye,
   },
   {
-    path: "/impressumu45screen",
+    path: "/impressum",
     component: ImpressumScreen,
-  },
-  {
-    path: "/winu45screen",
-    component: WinScreen,
   },
 ];
 

@@ -36,7 +36,7 @@
         <div class="frame-6">
           <div class="frame-7">
             <div class="img-wrapper">
-              <router-link to="/winu45screen">
+              <router-link to="/gewonnen">
                 <img
                   class="image-container-2"
                   alt="Image container"
@@ -50,7 +50,7 @@
             class="instance-node"
             divClassName="textlink-2"
             status="default"
-            to="/impressumu45screen"
+            to="/impressum"
           />
         </div>
       </div>

@@ -51,7 +51,7 @@
                 tolle Preise auf Sie.
               </p>
 
-              <router-link to="/mobileu45goodbyeu45screen">
+              <router-link to="/vorbei">
                 <img
                   class="image-container-3"
                   alt="Image container"
@@ -64,7 +64,7 @@
               class="textlink-3"
               divClassName="textlink-4"
               status="default"
-              to="/impressumu45screen"
+              to="/impressum"
             />
           </div>
         </template>
@@ -83,7 +83,7 @@
                 tolle Preise auf Sie.
               </p>
 
-              <router-link to="/mobileu45goodbyeu45screen">
+              <router-link to="/vorbei">
                 <img
                   class="image-container-4"
                   alt="Image container"
@@ -96,7 +96,7 @@
               class="textlink-3"
               divClassName="textlink-4"
               status="default"
-              to="/impressumu45screen"
+              to="/impressum"
             />
           </div>
         </template>
