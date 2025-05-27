@@ -2,32 +2,35 @@
   <div
     class="mobile-already"
     :style="{
-      height: screenWidth < 1440 ? '811px' : '1024px',
-      width: screenWidth < 1440 ? '375px' : '1440px'
+      height: screenWidth <= 500 ? '811px' : '1024px',
+      width: '100%',
+      maxWidth: '100vw',
+      overflow: 'hidden'
     }"
     data-model-id="3266:1862"
   >
     <div
       class="mobile-already-wrapper"
       :style="{
-        alignItems: screenWidth < 1440 ? 'center' : 'flex-start',
-        display: screenWidth < 1440 ? 'inline-flex' : 'flex',
-        height: screenWidth < 1440 ? '811px' : '1024px',
-        width: screenWidth >= 1440 ? '1440px' : undefined
+        alignItems: screenWidth <= 500 ? 'center' : 'flex-start',
+        display: 'flex',
+        flexDirection: 'column',
+        height: '100%',
+        width: '100%'
       }"
-      :data-effects-mode="screenWidth < 1440 ? 'mobile' : 'desktop'"
-      :data-typography-mode="screenWidth < 1440 ? 'mobile' : 'desktop'"
+      :data-effects-mode="screenWidth <= 500 ? 'mobile' : 'desktop'"
+      :data-typography-mode="screenWidth <= 500 ? 'mobile' : 'desktop'"
       data-typoswap-mode="non-serif"
     >
       <div
         class="div-2"
         :style="{
-          flex: screenWidth >= 1440 ? '1' : undefined,
-          flexGrow: screenWidth >= 1440 ? '1' : undefined,
-          width: screenWidth < 1440 ? '375px' : undefined
+          flex: '1',
+          width: '100%',
+          backgroundSize: 'cover'
         }"
       >
-        <template v-if="screenWidth < 1440">
+        <template v-if="screenWidth <= 500">
           <div class="logo-container-2">
             <a
               href="https://www.jls.ch/"
@@ -128,6 +131,11 @@ export default defineComponent({
 </script>
 
 <style>
+.mobile-already {
+  display: flex;
+  flex-direction: column;
+}
+
 .mobile-already .mobile-already-wrapper {
   gap: 8px;
   position: relative;
@@ -241,7 +249,9 @@ export default defineComponent({
   flex-direction: column;
   gap: 56px;
   position: relative;
-  width: 416px;
+  width: 100%;
+  max-width: 416px;
+  margin: 0 auto;
 }
 
 .mobile-already .image-container-4 {
@@ -251,5 +261,11 @@ export default defineComponent({
   object-fit: cover;
   position: relative;
   width: 100%;
+}
+
+@media (min-width: 501px) {
+  .mobile-already .div-2 {
+    padding: 56px 64px;
+  }
 }
 </style>

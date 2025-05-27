@@ -1,5 +1,5 @@
 <template>
-  <template v-if="screenWidth < 1440">
+  <template v-if="screenWidth <= 500">
     <div
       class="mobile-start-screen"
       :style="{
@@ -35,14 +35,16 @@
       <div class="frame-5">
         <div class="frame-6">
           <div class="frame-7">
-            <div class="img-wrapper">
-              <router-link to="/gewonnen">
-                <img
-                  class="image-container-2"
-                  alt="Image container"
-                  src="https://c.animaapp.com/JLkwDwWI/img/image-container-1@2x.png"
-                />
-              </router-link>
+            <div class="img-wrapper-container">
+              <div class="img-wrapper">
+                <router-link to="/gewonnen">
+                  <img
+                    class="image-container-2"
+                    alt="Image container"
+                    src="https://c.animaapp.com/JLkwDwWI/img/image-container-1@2x.png"
+                  />
+                </router-link>
+              </div>
             </div>
           </div>
 
@@ -56,7 +58,7 @@
       </div>
     </div>
   </template>
-  <template v-else>
+  <template v-else-if="screenWidth > 500">
     <div class="desktop-start-screen">
       <div class="frame-top">
         <LogoContainer
@@ -191,6 +193,7 @@ export default defineComponent({
   gap: 40px;
   padding: 0px 0px 40px;
   position: relative;
+  width: 100%;
 }
 
 .mobile-start-screen .frame-7 {
@@ -198,24 +201,32 @@ export default defineComponent({
   height: 64px;
   position: relative;
   width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.mobile-start-screen .img-wrapper-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
 }
 
 .mobile-start-screen .img-wrapper {
-  align-items: flex-start;
+  align-items: center;
   display: flex;
   flex-direction: column;
   height: 311px;
   position: relative;
   top: -244px;
   width: 311px;
+  justify-content: center;
 }
 
 .mobile-start-screen .image-container-2 {
-  align-self: stretch;
   display: block;
   height: 311px;
   position: relative;
-  width: 100%;
+  width: 311px;
 }
 
 .mobile-start-screen .instance-node {
