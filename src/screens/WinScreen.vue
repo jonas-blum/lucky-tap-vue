@@ -158,9 +158,9 @@
 
                     <div 
                       class="captcha-button"
-                      @click.prevent="verifyCaptcha"
+                      @click.prevent="formData.captchaVerified = true"
                     >
-                      <span class="captcha-text">{{ captchaVerified ? 'Verifiziert ✓' : 'Hier klicken' }}</span>
+                      <div class="captcha-button-text">Hier klicken</div>
                     </div>
                 </div>
               </div>
@@ -325,9 +325,9 @@
 
                     <div 
                       class="captcha-button"
-                      @click.prevent="verifyCaptcha"
+                      @click.prevent="formData.captchaVerified = true"
                     >
-                      <span class="captcha-text">{{ captchaVerified ? 'Verifiziert ✓' : 'Hier klicken' }}</span>
+                      <div class="captcha-button-text">Hier klicken</div>
                     </div>
                   </div>
                 </div>
@@ -390,10 +390,9 @@ export default defineComponent({
       lastName: '',
       email: '',
       phone: '',
-      newsletter: false
+      newsletter: false,
+      captchaVerified: false
     });
-    
-    const captchaVerified = ref(false);
     
     const errors = reactive({
       firstName: '',
@@ -452,16 +451,12 @@ export default defineComponent({
       return isValid;
     };
     
-    const verifyCaptcha = () => {
-      captchaVerified.value = true;
-    };
-    
     const isFormValid = computed(() => {
       return formData.firstName.trim() !== '' && 
              formData.lastName.trim() !== '' && 
              validateEmail(formData.email) && 
              validatePhone(formData.phone) &&
-             captchaVerified.value;
+             formData.captchaVerified;
     });
     
     const submitForm = () => {
@@ -477,9 +472,7 @@ export default defineComponent({
       formData,
       errors,
       isFormValid,
-      submitForm,
-      captchaVerified,
-      verifyCaptcha
+      submitForm
     };
   },
 });
@@ -727,20 +720,20 @@ export default defineComponent({
   height: 24px;
   padding: 0px 24px;
   width: 100%;
-  border-radius: 3px;
   justify-content: center;
   align-items: center;
   cursor: pointer;
+  border-radius: 3px;
 }
 
-.win-screen .captcha-text {
-  color: #ffffff;
+.win-screen .captcha-button-text {
   font-family: var(--label-font-family);
   font-size: var(--label-font-size);
   font-style: var(--label-font-style);
   font-weight: var(--label-font-weight);
   letter-spacing: var(--label-letter-spacing);
   line-height: var(--label-line-height);
+  color: #FFFFFF;
 }
 
 .win-screen .image-2 {
