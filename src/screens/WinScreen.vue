@@ -157,7 +157,7 @@
 
             <Button
               divClassName="button-6"
-              :icon="false"
+              icon="false"
               status="default"
               statusDefaultIconClassName="button-5"
               text="Senden"
@@ -298,7 +298,7 @@
               </div>
 
               <Button
-                :icon="false"
+                icon="false"
                 status="default"
                 statusDefaultIconClassName="button-5"
                 text="Senden"
@@ -320,7 +320,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, ref } from "vue";
 import { useWindowWidth } from "../breakpoints";
 import Button from "../components/Button.vue";
 import ButtonFinal from "../components/ButtonFinal.vue";

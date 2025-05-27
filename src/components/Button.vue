@@ -18,8 +18,7 @@ export default defineComponent({
     },
     icon: {
       type: Boolean,
-      required: false,
-      default: false
+      required: true,
     },
     statusDefaultIconClassName: {
       type: String,
